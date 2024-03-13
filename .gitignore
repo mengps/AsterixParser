@@ -1,0 +1,15 @@
+debug/
+release/
+buildlib/
+.qtc_clangd/
+*.pdb
+*.user
+*.Debug
+*.Release
+Makefile
+*.stash
+*.rc
+*.exe
+*.qmlc
+*.so-deployment-settings.json
+*.so
