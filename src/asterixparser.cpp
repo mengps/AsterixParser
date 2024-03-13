@@ -3,7 +3,7 @@
 #include "bit.h"
 #include "uap.h"
 
-static SimpleReservedExpansionField __cat021_parserOneReservedExpansionField(QByteArray &rawValue, int type)
+static SimpleReservedExpansionField __cat021_parseOneReservedExpansionField(QByteArray &rawValue, int type)
 {
     enum class Ref_Type {
         BPS  = 1 << 7,
@@ -232,7 +232,7 @@ quint32 AsterixParser::getU32(const QByteArray &data)
     return ::getU32((uchar *)(data.data()), 0);
 }
 
-QMap<int, SimpleAsterixRecordBlock> AsterixParser::parserToFsnMap(const uchar *asterixData)
+QMap<int, SimpleAsterixRecordBlock> AsterixParser::parseToFsnMap(const uchar *asterixData)
 {
     Q_D(AsterixParser);
 
@@ -251,7 +251,7 @@ QMap<int, SimpleAsterixRecordBlock> AsterixParser::parserToFsnMap(const uchar *a
     return map;
 }
 
-QMap<QString, SimpleAsterixRecordBlock> AsterixParser::parserToIdMap(const uchar *asterixData)
+QMap<QString, SimpleAsterixRecordBlock> AsterixParser::parseToIdMap(const uchar *asterixData)
 {
     Q_D(AsterixParser);
 
@@ -270,7 +270,7 @@ QMap<QString, SimpleAsterixRecordBlock> AsterixParser::parserToIdMap(const uchar
     return map;
 }
 
-QMap<int, SimpleReservedExpansionField> AsterixParser::parserReservedExpansionField(int cat, const SimpleAsterixRecordBlock &ref)
+QMap<int, SimpleReservedExpansionField> AsterixParser::parseReservedExpansionField(int cat, const SimpleAsterixRecordBlock &ref)
 {
     QMap<int, SimpleReservedExpansionField> map;
     auto rawValue = ref.rawValue;
@@ -286,7 +286,7 @@ QMap<int, SimpleReservedExpansionField> AsterixParser::parserReservedExpansionFi
                 for (int i = 7; i >= 0; i--) {
                     quint8 type = 1 << i;
                     if (spec & type) {
-                        map[type] = __cat021_parserOneReservedExpansionField(rawValue, type);
+                        map[type] = __cat021_parseOneReservedExpansionField(rawValue, type);
                     }
                     if (rawValue.isEmpty()) break;
                 }

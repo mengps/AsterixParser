@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
     AsterixParser parser(QT_STRINGIFY(PWD_PATH) + QString("/../asterixSpecification"));
 
-    auto map = parser.parserToFsnMap(test);
+    auto map = parser.parseToFsnMap(test);
 
     for (const auto &block: map) {
         qDebug() << block.frn << block.id << block.name << block.rawValue;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    auto ref_map = parser.parserReservedExpansionField(parser.getCategory(test), map[48]);
+    auto ref_map = parser.parseReservedExpansionField(parser.getCategory(test), map[48]);
     for (const auto &ref: ref_map) {
         for (const auto &subField: ref.subField)
             qDebug() << "  "

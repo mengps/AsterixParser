@@ -43,7 +43,7 @@
 
 ### 如何使用
 
-  使用 `parserToFsnMap()` / `parserToIdMap()` 将报文解析为映射。
+  使用 `parseToFsnMap()` / `parseToIdMap()` 将报文解析为映射。
 
   具体可运行示例: `example/example.pro`。
 

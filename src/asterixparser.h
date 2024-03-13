@@ -90,27 +90,27 @@ public:
     quint32 getU32(const QByteArray &data);
 
     /**
-     * @brief parserToFsnMap 解析为{fsn, block}映射
+     * @brief parseToFsnMap 解析为{fsn, block}映射
      * @param asterixData Asterix数据包
      * @return QMap<int, SimpleAsterixRecordBlock>
      */
-    QMap<int, SimpleAsterixRecordBlock> parserToFsnMap(const uchar *asterixData);
+    QMap<int, SimpleAsterixRecordBlock> parseToFsnMap(const uchar *asterixData);
 
     /**
-     * @brief parserToIdMap 解析为{id, block}映射
+     * @brief parseToIdMap 解析为{id, block}映射
      * @param asterixData Asterix数据包
      * @return QMap<int, SimpleAsterixRecordBlock>
      */
-    QMap<QString, SimpleAsterixRecordBlock> parserToIdMap(const uchar *asterixData);
+    QMap<QString, SimpleAsterixRecordBlock> parseToIdMap(const uchar *asterixData);
 
     /**
-     * @brief parserReservedExpansionField 解析保留扩展字段
+     * @brief parseReservedExpansionField 解析保留扩展字段
      * @warning 目前仅实现[cat021]
      * @param cat 类别
      * @param ref 扩展字段记录块
      * @return QMap<int, SimpleReservedExpansionField>
      */
-    QMap<int, SimpleReservedExpansionField> parserReservedExpansionField(int cat, const SimpleAsterixRecordBlock &ref);
+    QMap<int, SimpleReservedExpansionField> parseReservedExpansionField(int cat, const SimpleAsterixRecordBlock &ref);
 
 private:
     QScopedPointer<AsterixParserPrivate> d_ptr;
