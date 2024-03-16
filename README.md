@@ -10,6 +10,8 @@
 
   `asterixSpecification` 为规范文件目录`[.XML]`, 生成方式可参考: https://zoranbosnjak.github.io/asterix-specs/index.html
 
+  `Asterix 规范转换器` 可参考: https://github.com/CroatiaControlLtd/asterix/tree/master/asterix-specs-converter
+
 ---
 
 ### 目前支持的Asterix类别
