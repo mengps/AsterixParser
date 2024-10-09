@@ -232,42 +232,44 @@ quint32 AsterixParser::getU32(const QByteArray &data)
     return ::getU32((uchar *)(data.data()), 0);
 }
 
-QMap<int, SimpleAsterixRecordBlock> AsterixParser::parseToFsnMap(const uchar *asterixData)
+QList<QMap<int, SimpleAsterixRecordBlock>> AsterixParser::parseToFsnMap(const uchar *asterixData)
 {
     Q_D(AsterixParser);
 
     AsterixBlock asterixBlock(asterixData, *d->m_uap);
 
-    QMap<int, SimpleAsterixRecordBlock> map;
-
+    QList<QMap<int, SimpleAsterixRecordBlock>> mapList;
     for (int i = 0; i < asterixBlock.numRecords(); i++) {
         auto record = asterixBlock.record(i);
+        QMap<int, SimpleAsterixRecordBlock> map;
         for (int ii = 0; ii < record.numFields(); ii++) {
             auto block = parserAsterixRecordBlock(record.field(ii));
             map[block.frn] = block;
         }
+        mapList.append(map);
     }
 
-    return map;
+    return mapList;
 }
 
-QMap<QString, SimpleAsterixRecordBlock> AsterixParser::parseToIdMap(const uchar *asterixData)
+QList<QMap<QString, SimpleAsterixRecordBlock>> AsterixParser::parseToIdMap(const uchar *asterixData)
 {
     Q_D(AsterixParser);
 
     AsterixBlock asterixBlock(asterixData, *d->m_uap);
 
-    QMap<QString, SimpleAsterixRecordBlock> map;
-
+    QList<QMap<QString, SimpleAsterixRecordBlock>> mapList;
     for (int i = 0; i < asterixBlock.numRecords(); i++) {
         auto record = asterixBlock.record(i);
+        QMap<QString, SimpleAsterixRecordBlock> map;
         for (int ii = 0; ii < record.numFields(); ii++) {
             auto block = parserAsterixRecordBlock(record.field(ii));
             map[block.id] = block;
         }
+        mapList.append(map);
     }
 
-    return map;
+    return mapList;
 }
 
 QMap<int, SimpleReservedExpansionField> AsterixParser::parseReservedExpansionField(int cat, const SimpleAsterixRecordBlock &ref)

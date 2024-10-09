@@ -90,18 +90,18 @@ public:
     quint32 getU32(const QByteArray &data);
 
     /**
-     * @brief parseToFsnMap 解析为{fsn, block}映射
+     * @brief parseToFsnMap 解析为[{fsn, block}...]映射列表
      * @param asterixData Asterix数据包
-     * @return QMap<int, SimpleAsterixRecordBlock>
+     * @return QList<QMap<int, SimpleAsterixRecordBlock>>
      */
-    QMap<int, SimpleAsterixRecordBlock> parseToFsnMap(const uchar *asterixData);
+    QList<QMap<int, SimpleAsterixRecordBlock>> parseToFsnMap(const uchar *asterixData);
 
     /**
-     * @brief parseToIdMap 解析为{id, block}映射
+     * @brief parseToIdMap 解析为[{id, block}...]映射列表
      * @param asterixData Asterix数据包
-     * @return QMap<int, SimpleAsterixRecordBlock>
+     * @return QList<QMap<QString, SimpleAsterixRecordBlock>>
      */
-    QMap<QString, SimpleAsterixRecordBlock> parseToIdMap(const uchar *asterixData);
+    QList<QMap<QString, SimpleAsterixRecordBlock>> parseToIdMap(const uchar *asterixData);
 
     /**
      * @brief parseReservedExpansionField 解析保留扩展字段
