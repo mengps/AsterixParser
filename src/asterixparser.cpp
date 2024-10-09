@@ -158,10 +158,10 @@ static SimpleAsterixRecordBlock parserAsterixRecordBlock(const AsterixDataItem &
             case UapField::HEX:
             default:
             {
-                value = bitfieldToUInt(field);
                 QString str = "0x";
-                for (int i=0; i < field.size(); i++)
+                for (int i = 0; i < field.size(); i++)
                     str += QString("%1").arg((uint)((uchar)field[i]), 2, 16, QChar('0'));
+                value = str;
             } break;
             }
 
