@@ -201,7 +201,9 @@ AsterixParser::AsterixParser(const QString &specificationDir, QObject *parent)
 
 AsterixParser::~AsterixParser()
 {
+    Q_D(AsterixParser);
 
+    delete d->m_uap;
 }
 
 int AsterixParser::getCategory(const uchar *asterixData)
