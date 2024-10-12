@@ -1,6 +1,5 @@
 #include <QCoreApplication>
 #include <QDebug>
-#include <QtEndian>
 
 #include "asterixparser.h"
 
@@ -65,7 +64,7 @@ int main(int argc, char *argv[])
     auto mapList = parser.parseToFsnMap(test);
 
     for (int i = 0; i < mapList.length(); i++) {
-        qDebug().noquote().nospace() << "Message #" + QString::number(i).rightJustified(2, '0');
+        qDebug().noquote().nospace() << "Message #" + QString::number(i + 1).rightJustified(2, '0');
         const auto map = mapList.at(i);
         for (const auto &block: map) {
             qDebug() << "  " << block.frn << block.id << block.name << block.rawValue;
@@ -79,17 +78,20 @@ int main(int argc, char *argv[])
                              << applyUnitAndScale(subBlock.value, subBlock.scale, subBlock.unit);
             }
         }
+
+        //cat021 REF
+        if (parser.getCategory(test) == 21 && map.contains(48)) {
+            auto ref_map = parser.parseReservedExpansionField(parser.getCategory(test), map[48]);
+            for (const auto &ref: ref_map) {
+                for (const auto &subField: ref.subField)
+                    qDebug() << "    "
+                             << subField.name
+                             << (subField.value.size() == 1 ? (parser.getU8(subField.value)) : (parser.getU16(subField.value)));
+            }
+        }
+
         qDebug() << Qt::endl;
     }
-
-    //cat021 REF
-    /*auto ref_map = parser.parseReservedExpansionField(parser.getCategory(test), map[48]);
-    for (const auto &ref: ref_map) {
-        for (const auto &subField: ref.subField)
-            qDebug() << "  "
-                     << subField.name
-                     << (subField.value.size() == 1 ? (parser.getU8(subField.value)) : (parser.getU16(subField.value)));
-    }*/
 
 
     return app.exec();

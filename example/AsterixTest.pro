@@ -13,12 +13,12 @@ HEADERS +=
 SOURCES += \
         main.cpp
 
-INCLUDEPATH += $$PWD/../../AsterixParser/buildlib/include
+INCLUDEPATH += $$PWD/../src
 
 CONFIG(debug, debug|release) {
-    LIBS += -L$$PWD/../../AsterixParser/buildlib/debug -lasterixparserd
+    LIBS += -L$$PWD/../buildlib/debug -lasterixparserd
 } else {
-    LIBS += -L$$PWD/../../AsterixParser/buildlib/release -lasterixparser
+    LIBS += -L$$PWD/../buildlib/release -lasterixparser
 }
 
 

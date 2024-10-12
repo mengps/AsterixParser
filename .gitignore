@@ -13,3 +13,7 @@ Makefile
 *.qmlc
 *.so-deployment-settings.json
 *.so
+
+#生成的文件
+build/
+buildlib/
