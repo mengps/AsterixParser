@@ -21,13 +21,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/buildlib/${CMAKE_BUILD_T
 
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
-if (WIN32)
-    add_compile_definitions(YY_NO_UNISTD_H)
-endif()
-
 add_library(asterixparser SHARED
-    asterix.h
-    asterix.cpp
     asterix.cpp
     asterix.h
     asterixparser.cpp
@@ -45,6 +39,10 @@ add_library(asterixparser SHARED
     uap.cpp
     uap.h
 )
+
+if (WIN32)
+    target_compile_definitions(asterixparser PRIVATE YY_NO_UNISTD_H)
+endif()
 
 target_compile_definitions(asterixparser
     PRIVATE ASTERIXPARSER_LIBRARY
