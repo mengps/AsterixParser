@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-message("${CMAKE_CURRENT_LIST_DIR}")
-
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 11)
 
@@ -11,8 +9,6 @@ project(Example VERSION 1.0 LANGUAGES CXX)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Xml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Xml)
-
-add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 
 add_executable(Example
     main.cpp

@@ -10,17 +10,6 @@ project(AsterixParser VERSION 1.0 LANGUAGES CXX)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Xml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Xml)
 
-set(CMAKE_DEBUG_POSTFIX "d")
-
-#linux .so output
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/buildlib/${CMAKE_BUILD_TYPE}")
-#win .dll output
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/buildlib/${CMAKE_BUILD_TYPE}")
-#win .lib output
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/buildlib/${CMAKE_BUILD_TYPE}")
-
-add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-
 add_library(asterixparser SHARED
     asterix.cpp
     asterix.h
@@ -40,15 +29,34 @@ add_library(asterixparser SHARED
     uap.h
 )
 
-if (WIN32)
-    target_compile_definitions(asterixparser PRIVATE YY_NO_UNISTD_H)
-endif()
+target_compile_options(asterixparser PRIVATE "$<$<CXX_COMPILER_ID:MSVC>:/utf-8 /pdb>")
 
 target_compile_definitions(asterixparser
     PRIVATE ASTERIXPARSER_LIBRARY
+    PRIVATE $<$<BOOL:${WIN32}>:YY_NO_UNISTD_H>
 )
 
-target_link_libraries(asterixparser
-    PRIVATE Qt::Core
-    PRIVATE Qt::Xml
+target_link_libraries(asterixparser PRIVATE
+    Qt::Core
+    Qt::Xml
+)
+
+set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
+
+set(EXPORT_HEADER
+    asterixparser.h
+    asterixparser_global.h
+)
+
+set_target_properties(asterixparser PROPERTIES
+    DEBUG_POSTFIX "d"
+    PUBLIC_HEADER "${EXPORT_HEADER}"
+    PDB_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/buildlib/${CMAKE_BUILD_TYPE}
+)
+
+install(TARGETS asterixparser
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/buildlib/include
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/buildlib/${CMAKE_BUILD_TYPE}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/buildlib/${CMAKE_BUILD_TYPE}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/buildlib/${CMAKE_BUILD_TYPE}
 )
