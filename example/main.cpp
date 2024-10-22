@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
         //cat021 REF
         if (parser.getCategory(test) == 21 && map.contains(48)) {
             auto ref_map = parser.parseReservedExpansionField(parser.getCategory(test), map[48]);
-            for (const auto &ref: ref_map) {
+            for (const auto &ref: qAsConst(ref_map)) {
                 for (const auto &subField: ref.subField)
                     qDebug() << "    "
                              << subField.name
