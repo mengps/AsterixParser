@@ -39,7 +39,11 @@
 
 ### 如何构建
 
-  构建 `AsterixParser`, 构建文件 `AsterixParser.pro`, 生成目录`/buildlib`。
+- 使用 `cmake` 构建
+> 构建 `AsterixParser`, 构建文件 `CMakeLists.txt`, 生成目录`/buildlib`。
+
+- 使用 `qmake` 构建
+> 构建 `AsterixParser`, 构建文件 `AsterixParser.pro`, 生成目录`/buildlib`。
 
 ---
 
